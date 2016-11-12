@@ -60,29 +60,53 @@ function loadPrice() {
 
   console.log(data);
 
-  // var request = $.ajax({
-  //   url: "https://decc27d7.eu.ngrok.io/quotes",
-  //   type: "POST",
-  //   data: data
-  // });
+  var request = $.ajax({
+    url: "https://decc27d7.eu.ngrok.io/quotes",
+    type: "POST",
+    data: data
+  });
+
+  request.done(function () {
+    swal({
+      title: "Quote successfully requested!",
+      text: "We will get back to You via e-mail with the best possible offer You can get.",
+      type: "success",
+      showConfirmButton: false
+    })
+  });
+
+  request.fail(function (response) {
+    for (var error in response.responseJSON) {}
+    console.log('fail', arguments);
+    swal("An error occurred!", response.responseJSON[error][0], "error")
+  });
 
   // $('#screen-quote').addClass('zoomOutRight');
   // $('#screen-quote').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', switchScreens);
 }
+
+if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+    $('.select2-search__field').attr('readonly', true);
+}
+$('.select2-container').each(function () {
+    if (!$(this).hasClass('select2-container-multi')) {
+        $('input', this).remove();
+    }
+});
 
 function showIndividualInfo() {
   $('#insurance_info button[onclick]').addClass('hide');
   $('#individual_info').removeClass('hide');
     $('html, body').animate({
         scrollTop: $('#individual_info').offset().top
-    }, 2000);
+    }, 1000);
 }
 function showInsuranceInfo() {
   $('#additional_options button[onclick]').addClass('hide');
   $('#insurance_info').removeClass('hide');
     $('html, body').animate({
         scrollTop: $('#insurance_info').offset().top
-    }, 2000);
+    }, 1000);
 }
 
 
@@ -102,7 +126,7 @@ $('#property_type button').on('click', function () {
 
   $('html, body').animate({
       scrollTop: $('#property_size').offset().top
-  }, 2000);
+  }, 1000);
 })
 
 
@@ -111,7 +135,7 @@ $('select[name="property_size"]').on('change select', function () {
     $('#construction_type').removeClass('hide');
     $('html, body').animate({
         scrollTop: $('#construction_type').offset().top
-    }, 2000);
+    }, 1000);
   }
 });
 $('select[name="construction_type"]').on('change select', function () {
@@ -119,6 +143,6 @@ $('select[name="construction_type"]').on('change select', function () {
     $('#additional_options').removeClass('hide');
     $('html, body').animate({
         scrollTop: $('#additional_options').offset().top
-    }, 2000);
+    }, 1000);
   }
 });
