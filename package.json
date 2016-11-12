@@ -44,6 +44,6 @@
     }
   },
   "scripts": {
-    "postinstall": "gulp build"
+    "build": "gulp build"
   }
 }
