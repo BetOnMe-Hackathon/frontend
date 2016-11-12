@@ -33,6 +33,9 @@
     <div class="container">
       <h1>BetOnMe</h1>
 
+      <p class="text-center" style="margin-bottom:0">Insurance on YOUR terms.</p>
+      <p class="text-center" style="padding-bottom:5px">Fill out the form and let the insurers fight for your money.</p>
+
       <div id="screen-quote" class="animated">
         <div class="row">
           <div class="col-md-offset-3 col-md-6">
@@ -46,7 +49,7 @@
             </div>
           </div>
 
-          <div class="col-md-6 animated fadeIn hide" id="property_size">
+          <div class="col-md-6 animated fadeIn visible-xs-block" id="property_size">
             <div class="form-group">
               <label>Property size <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Please select the size of your property."></i></label>
               <select class="form-control select select-primary" name="property_size" data-toggle="select">
@@ -61,7 +64,7 @@
             </div>
           </div>
 
-          <div class="col-md-6 animated fadeIn hide" id="construction_type">
+          <div class="col-md-6 animated fadeIn visible-xs-block" id="construction_type">
             <div class="form-group">
               <label>Construction type <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="What kind of building is this?"></i></label>
 
@@ -74,7 +77,7 @@
           </div>
         </div>
 
-        <div class="animated fadeIn hide" id="additional_options">
+        <div class="animated fadeIn visible-xs-block" id="additional_options">
           <div class="row">
             <div class="col-md-10">
               <label class="checkbox">
@@ -95,11 +98,11 @@
           </div>
 
           <div class="text-center">
-            <button class="btn btn-lg btn-warning" onclick="showInsuranceInfo()">Proceed</button>
+            <button class="btn btn-lg btn-warning hidden-xs" onclick="showInsuranceInfo()">Proceed</button>
           </div>
         </div>
 
-        <div class="animated fadeIn hide" id="insurance_info">
+        <div class="animated fadeIn visible-xs-block" id="insurance_info">
           <hr />
 
           <p>In case 💩 hits the fan, how money much would you like to receive?</p>
@@ -136,11 +139,11 @@
           </div>
 
           <div class="text-center">
-            <button class="btn btn-lg btn-warning" onclick="showIndividualInfo()">Proceed</button>
+            <button class="btn btn-lg btn-warning hidden-xs" onclick="showIndividualInfo()">Proceed</button>
           </div>
         </div>
 
-        <div id="individual_info" class="animated fadeIn hide">
+        <div id="individual_info" class="animated fadeIn visible-xs-block">
           <hr />
 
           <div>
@@ -186,10 +189,10 @@
         </div>
       </div>
 
-      <div id="screen-success" class="hide"><!-- animated zoomInLeft -->
+      <!-- <div id="screen-success" class="hide">
         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
         <p class="text-center text-success"><strong>Quote successfully requested!</strong><br /> We will get back to You via e-mail with the best possible offer You can get.</p>
-      </div>
+      </div> -->
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

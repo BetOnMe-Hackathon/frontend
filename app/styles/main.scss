@@ -15,7 +15,12 @@ $bgcolor: #28394d;
 html {
   height: 100%;
 }
-
+/*
+html, body {
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}*/
 /* Space out content a bit */
 body {
   padding-top: 20px;
@@ -130,7 +135,7 @@ h1 {
   /* height: 130px;
   background-size: cover; */
   height: 100px;
-  background-size: 400px;
+  background-size: 150px;
   margin-bottom: 30px;
 }
 
@@ -253,6 +258,7 @@ $curve: cubic-bezier(0.650, 0.000, 0.450, 1.000);
   body {
     padding: 0;
     background: #fff;
+    /*margin-bottom: 50px;*/
   }
   .particles-js-canvas-el {
     display: none;

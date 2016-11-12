@@ -39,8 +39,8 @@ $('[data-toggle="select"]').select2();
 
 function loadPrice() {
   var switchScreens = function() {
-    $('#screen-quote').addClass('hide');
-    $('#screen-success').removeClass('hide');
+    $('#screen-quote').addClass('hide-xs-block');
+    $('#screen-success').removeClass('hide-xs-block');
   };
 
   var data = {
@@ -61,16 +61,16 @@ function loadPrice() {
   console.log(data);
 
   var request = $.ajax({
-    url: "https://decc27d7.eu.ngrok.io/quotes",
-    type: "POST",
+    url: 'https://api.bidonme.eu/quotes',
+    type: 'POST',
     data: data
   });
 
   request.done(function () {
     swal({
-      title: "Quote successfully requested!",
-      text: "We will get back to You via e-mail with the best possible offer You can get.",
-      type: "success",
+      title: 'Quote successfully requested!',
+      text: 'We will get back to You via e-mail with the best possible offer You can get.',
+      type: 'success',
       showConfirmButton: false
     })
   });
@@ -78,7 +78,7 @@ function loadPrice() {
   request.fail(function (response) {
     for (var error in response.responseJSON) {}
     console.log('fail', arguments);
-    swal("An error occurred!", response.responseJSON[error][0], "error")
+    swal('An error occurred!', response.responseJSON[error][0], 'error')
   });
 
   // $('#screen-quote').addClass('zoomOutRight');
@@ -96,14 +96,14 @@ $('.select2-container').each(function () {
 
 function showIndividualInfo() {
   $('#insurance_info button[onclick]').addClass('hide');
-  $('#individual_info').removeClass('hide');
+  $('#individual_info').removeClass('visible-xs-block');
     $('html, body').animate({
         scrollTop: $('#individual_info').offset().top
     }, 1000);
 }
 function showInsuranceInfo() {
   $('#additional_options button[onclick]').addClass('hide');
-  $('#insurance_info').removeClass('hide');
+  $('#insurance_info').removeClass('visible-xs-block');
     $('html, body').animate({
         scrollTop: $('#insurance_info').offset().top
     }, 1000);
@@ -122,7 +122,7 @@ $('#property_type button').on('click', function () {
   // });
 
   $(this).addClass('btn-warning');
-  $('#property_size').removeClass('hide');
+  $('#property_size').removeClass('visible-xs-block');
 
   $('html, body').animate({
       scrollTop: $('#property_size').offset().top
@@ -132,7 +132,7 @@ $('#property_type button').on('click', function () {
 
 $('select[name="property_size"]').on('change select', function () {
   if ($(this).val() !== 'Please select') {
-    $('#construction_type').removeClass('hide');
+    $('#construction_type').removeClass('visible-xs-block');
     $('html, body').animate({
         scrollTop: $('#construction_type').offset().top
     }, 1000);
@@ -140,7 +140,7 @@ $('select[name="property_size"]').on('change select', function () {
 });
 $('select[name="construction_type"]').on('change select', function () {
   if ($(this).val() !== 'Please select') {
-    $('#additional_options').removeClass('hide');
+    $('#additional_options').removeClass('visible-xs-block');
     $('html, body').animate({
         scrollTop: $('#additional_options').offset().top
     }, 1000);
