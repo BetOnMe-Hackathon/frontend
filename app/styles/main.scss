@@ -173,6 +173,16 @@ input.form-control {
 
 #property_type button {
   width: 50%;
+  outline: none;
+}
+#property_type button::-moz-focus-inner {
+  border: 0;
+  outline: none;
+}
+#property_type .fa {
+  font-size: 40px;
+  display: block;
+  margin-bottom: 10px;
 }
 
 

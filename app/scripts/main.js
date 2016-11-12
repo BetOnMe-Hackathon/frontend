@@ -67,6 +67,11 @@ function showInsuranceInfo() {
 // Input show/hide
 $('#property_type button').on('click', function () {
   $('#property_type button').removeClass('btn-warning');
+  // $('#property_type .fa').addClass('animated fadeOut');
+  // $('#property_type .fa').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+  //   $('#property_type .fa').addClass('hide');
+  // });
+
   $(this).addClass('btn-warning');
   $('#property_size').removeClass('hide');
 
