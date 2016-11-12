@@ -3,7 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>BidOnMe</title>
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -38,8 +39,8 @@
               <label>Property type <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Do you own an apartment? Perhaps even a house?"></i></label>
 
               <div id="property_type" class="btn-group btn-block">
-                <button class="btn btn-lg btn-default"><i class="fa fa-building"></i>Apartment</button>
-                <button class="btn btn-lg btn-default"><i class="fa fa-home"></i>House</button>
+                <button class="btn btn-lg btn-default" data-val="apartment"><i class="fa fa-building"></i>Apartment</button>
+                <button class="btn btn-lg btn-default" data-val="house"><i class="fa fa-home"></i>House</button>
               </div>
             </div>
           </div>
@@ -50,11 +51,11 @@
               <select class="form-control select select-primary" name="property_size" data-toggle="select">
                 <option>Please select</option>
                 <option value="0">&lt; 50m²</option>
-                <option value="0">50-75m²</option>
-                <option value="0">75-100m²</option>
-                <option value="0">100-125m²</option>
-                <option value="0">125-150m²</option>
-                <option value="0">150m² &gt;</option>
+                <option value="1">50-75m²</option>
+                <option value="2">75-100m²</option>
+                <option value="3">100-125m²</option>
+                <option value="4">125-150m²</option>
+                <option value="5">150m² &gt;</option>
               </select>
             </div>
           </div>
@@ -65,8 +66,8 @@
 
               <select class="form-control select select-primary" name="construction_type" data-toggle="select">
                 <option>Please select</option>
-                <option value="0">Brick house</option>
-                <option value="1">Wooden house</option>
+                <option value="brick">Brick house</option>
+                <option value="wood">Wooden house</option>
               </select>
             </div>
           </div>
@@ -76,17 +77,17 @@
           <div class="row">
             <div class="col-md-10">
               <label class="checkbox">
-                <input type="checkbox" value="" data-toggle="checkbox">
+                <input type="checkbox" value="" name="building_year" data-toggle="checkbox">
                 Property was built in the last 10 years
               </label>
 
               <label class="checkbox">
-                <input type="checkbox" value="" data-toggle="checkbox">
+                <input type="checkbox" value="" name="reconstruction" data-toggle="checkbox">
                 Property has had capital reconstruction in the last 5 years
               </label>
 
               <label class="checkbox">
-                <input type="checkbox" value="" data-toggle="checkbox">
+                <input type="checkbox" value="" name="security" data-toggle="checkbox">
                 Property has a security system
               </label>
             </div>
@@ -110,11 +111,11 @@
             </div>
             <div class="col-md-8">
               <div class="form-group">
-                <div id="contents" class="ui-slider"></div>
+                <div id="robbery" class="ui-slider"></div>
               </div>
             </div>
             <div class="col-md-2 insurance-amount">
-              $<span id="contents-amount"></span>
+              $<span id="robbery-amount"></span>
             </div>
           </div>
           <div class="row">
@@ -125,11 +126,11 @@
             </div>
             <div class="col-md-8">
               <div class="form-group">
-                <div id="compensation" class="ui-slider"></div>
+                <div id="disaster" class="ui-slider"></div>
               </div>
             </div>
             <div class="col-md-2 insurance-amount">
-              $<span id="compensation-amount"></span>
+              $<span id="disaster-amount"></span>
             </div>
           </div>
 
@@ -173,7 +174,7 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Email <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="We need this to later send you the insurance offer."></i></label>
-                <input type="text" value="" placeholder="john@doe.com" class="form-control">
+                <input type="text" value="" placeholder="john@doe.com" name="email" class="form-control">
               </div>
             </div>
           </div>
