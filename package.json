@@ -42,5 +42,8 @@
         "single"
       ]
     }
+  },
+  "scripts": {
+    "postinstall": "gulp build"
   }
 }
