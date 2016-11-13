@@ -214,14 +214,14 @@ if (getParameterByName('id')) {
             '<div class="row animated fadeIn hide" id="offer-' + offerId + '">' +
               '<div class="col-sm-offset-3 col-sm-6 well">' +
                 '<div class="row">' +
-                  '<div class="col-sm-4">' +
+                  '<div class="col-xs-4">' +
                     '<img src="http://localhost:9000/images/logo.png" height="40px">' +
                   '</div>' +
-                  '<div class="col-sm-5">' +
+                  '<div class="col-xs-5">' +
                     '<span style="font-size: 25px">€ ' + (price/100) + '</span>'  +
                   '</div>' +
-                  '<div class="col-sm-3">' +
-                    '<button class="btn btn-warning" onclick="buy('+ price + ', \'' + offerId + '\')">Buy</button>' +
+                  '<div class="col-xs-3">' +
+                    '<button class="btn btn-warning btn-block" onclick="buy('+ price + ', \'' + offerId + '\')">Buy</button>' +
                   '</div>' +
                 '</div>' +
               '</div>' +
@@ -288,15 +288,17 @@ if (getParameterByName('id')) {
           type: 'success',
           showConfirmButton: false
         });
+        $('#loader').addClass('hide');
       });
 
       request.fail(function () {
         swal({
           title: 'An error occurred!',
-          text: 'Sorry, but this page is invalid.',
+          text: 'Sorry, but something went wrong.',
           type: 'error',
-          // showConfirmButton: false
+          showConfirmButton: false
         });
+        $('#loader').addClass('hide');
       });
     }
   });
