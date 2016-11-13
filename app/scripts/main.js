@@ -232,6 +232,8 @@ if (getParameterByName('id')) {
         $('#no-quotes').removeClass('hide');
       }
 
+      var j = 1;
+
       for (var round in response) {
         for (var i in response[round].bids) {
           if (response[round].bids[i].offer_price === null) {
@@ -245,17 +247,20 @@ if (getParameterByName('id')) {
           offers[response[round].bids[i].offer_id] = true;
 
           var price = response[round].bids[i].offer_price,
-            offerId = response[round].bids[i].offer_id;
+            offerId = response[round].bids[i].offer_id,
+            image = 'bider-0' + j + '.png';
+
+          j++;
 
           $('#bids').prepend(
             '<div class="row animated fadeIn hide" id="offer-' + offerId + '">' +
               '<div class="col-sm-offset-3 col-sm-6 well">' +
                 '<div class="row">' +
                   '<div class="col-xs-4">' +
-                    '<img src="http://localhost:9000/images/logo.png" height="40px">' +
+                    '<img src="/images/' + image + '" height="40px">' +
                   '</div>' +
                   '<div class="col-xs-5">' +
-                    '<span style="font-size: 25px">€ ' + (price/100) + '</span>'  +
+                    '<span style="font-size: 25px">$ ' + (price/100) + '</span>'  +
                   '</div>' +
                   '<div class="col-xs-3">' +
                     '<button class="btn btn-warning btn-block" onclick="buy('+ price + ', \'' + offerId + '\')">Buy</button>' +
