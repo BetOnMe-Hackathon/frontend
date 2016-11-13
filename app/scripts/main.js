@@ -2,8 +2,8 @@
 var property_type;
 
 $('#robbery').slider({
-  max: 10000,
-  step: 500,
+  max: 50000,
+  step: 1000,
   value: 0,
   orientation: 'horizontal',
   range: 'min',
@@ -13,8 +13,8 @@ $('#robbery').slider({
 });
 
 $('#disaster').slider({
-  max: 10000,
-  step: 500,
+  max: 50000,
+  step: 1000,
   value: 0,
   orientation: 'horizontal',
   range: 'min',
@@ -78,7 +78,12 @@ function loadPrice() {
   request.fail(function (response) {
     for (var error in response.responseJSON) {}
     console.log('fail', arguments);
-    swal('An error occurred!', response.responseJSON[error][0], 'error')
+    var err = 'Unknown error';
+
+    if (response.responseJSON !== undefined || response.responseJSON[error] !== undefined || response.responseJSON[error][0] !== undefined) {
+      err = response.responseJSON[error][0];
+    }
+    swal('An error occurred!', err, 'error')
   });
 
   // $('#screen-quote').addClass('zoomOutRight');
@@ -146,3 +151,170 @@ $('select[name="construction_type"]').on('change select', function () {
     }, 1000);
   }
 });
+
+
+
+
+
+
+
+
+
+
+// FIGHT page
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+if (getParameterByName('id')) {
+  var offers = {};
+  var stopped = false;
+  var quoteObject;
+  var loadQuote = function (id) {
+    var request = $.ajax({
+      url: 'https://api.bidonme.eu/quotes/' + id,
+      type: 'GET'
+    });
+
+    request.done(function (response) {
+      quoteObject = response;
+      var delay = 0;
+
+      $('#loader').addClass('hide');
+
+      if (Object.keys(response).length > 0) {
+        $('#no-quotes').addClass('hide');
+        $('#time').removeClass('hide');
+      } else {
+        $('#no-quotes').removeClass('hide');
+      }
+
+      for (var round in response) {
+        for (var i in response[round].bids) {
+          if (response[round].bids[i].offer_price === null) {
+            continue;
+          }
+
+          if (offers[response[round].bids[i].offer_id] === true) {
+            continue;
+          }
+
+          offers[response[round].bids[i].offer_id] = true;
+
+          var price = response[round].bids[i].offer_price,
+            offerId = response[round].bids[i].offer_id;
+
+          $('#bids').prepend(
+            '<div class="row animated fadeIn hide" id="offer-' + offerId + '">' +
+              '<div class="col-sm-offset-3 col-sm-6 well">' +
+                '<div class="row">' +
+                  '<div class="col-sm-4">' +
+                    '<img src="http://localhost:9000/images/logo.png" height="40px">' +
+                  '</div>' +
+                  '<div class="col-sm-5">' +
+                    '<span style="font-size: 25px">€ ' + (price/100) + '</span>'  +
+                  '</div>' +
+                  '<div class="col-sm-3">' +
+                    '<button class="btn btn-warning" onclick="buy('+ price + ', \'' + offerId + '\')">Buy</button>' +
+                  '</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>'
+          );
+
+          setTimeout(function() {
+            $($('#bids .hide')[0]).removeClass('hide');
+          }, 300 * delay);
+
+          delay += 1;
+        }
+      }
+
+      if (Object.keys(response).length > 0) {
+        $('#time-remaining').html(moment(response[round].expires * 1000).fromNow());
+      }
+
+      setTimeout(function () {
+        if (stopped === true) {
+          return
+        }
+        loadQuote(id);
+      }, 3000);
+    });
+
+    request.fail(function () {
+      swal({
+        title: 'An error occurred!',
+        text: 'Sorry, but this page is invalid.',
+        type: 'error',
+        // showConfirmButton: false
+      });
+    });
+  }
+
+  loadQuote(getParameterByName('id'));
+
+  var handler = StripeCheckout.configure({
+    key: 'pk_test_gGD5angznT3xQIkvIGYHMprN',
+    image: 'http://www.bidonme.eu/images/logo.png',
+    locale: 'auto',
+    currency: 'usd',
+    token: function(token) {
+      var data = {
+        'token': token.id,
+        'offer_id': offerId,
+      };
+
+      stopped = true;
+      var request = $.ajax({
+        url: 'https://api.bidonme.eu/payment',
+        type: 'POST',
+        data: data
+      });
+
+      $('#loader').removeClass('hide');
+      $('#bids').addClass('hide');
+
+      request.done(function () {
+        swal({
+          title: 'Policy successfully purchased!',
+          text: 'The policy documentation will shortly arrive at your email.',
+          type: 'success',
+          showConfirmButton: false
+        });
+      });
+
+      request.fail(function () {
+        swal({
+          title: 'An error occurred!',
+          text: 'Sorry, but this page is invalid.',
+          type: 'error',
+          // showConfirmButton: false
+        });
+      });
+    }
+  });
+
+  var offerId;
+
+  function buy(price, offer) {
+    offerId = offer;
+
+    $('#offer-' + offer + ' button').attr('disabled');
+
+    handler.open({
+      name: 'BetOnMe',
+      description: 'Property Insurance',
+      zipCode: false,
+      bitcoin: true,
+      amount: price
+    });
+
+  }
+}
