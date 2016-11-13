@@ -2,9 +2,9 @@
 var property_type;
 
 $('#robbery').slider({
-  max: 50000,
+  max: 100000,
   step: 1000,
-  value: 0,
+  value: 15000,
   orientation: 'horizontal',
   range: 'min',
   slide: function( event, ui ) {
@@ -13,9 +13,9 @@ $('#robbery').slider({
 });
 
 $('#disaster').slider({
-  max: 50000,
+  max: 100000,
   step: 1000,
-  value: 0,
+  value: 50000,
   orientation: 'horizontal',
   range: 'min',
   slide: function (event, ui) {
@@ -23,10 +23,44 @@ $('#disaster').slider({
   }
 });
 
+$('#vandalism').slider({
+  max: 100000,
+  step: 1000,
+  value: 30000,
+  orientation: 'horizontal',
+  range: 'min',
+  slide: function (event, ui) {
+    $( '#vandalism-amount' ).html( ui.value );
+  }
+});
+$('#fire').slider({
+  max: 100000,
+  step: 1000,
+  value: 90000,
+  orientation: 'horizontal',
+  range: 'min',
+  slide: function (event, ui) {
+    $( '#fire-amount' ).html( ui.value );
+  }
+});
+$('#leakage').slider({
+  max: 100000,
+  step: 1000,
+  value: 0,
+  orientation: 'horizontal',
+  range: 'min',
+  slide: function (event, ui) {
+    $( '#leakage-amount' ).html( ui.value );
+  }
+});
+
 
 
 $( '#robbery-amount' ).html( $( '#robbery' ).slider('value') );
 $( '#disaster-amount' ).html( $( '#disaster' ).slider('value') );
+$( '#leakage-amount' ).html( $( '#leakage' ).slider('value') );
+$( '#vandalism-amount' ).html( $( '#vandalism' ).slider('value') );
+$( '#fire-amount' ).html( $( '#fire' ).slider('value') );
 
 $('[data-toggle="tooltip"]').tooltip();
 $('[data-toggle="radio"]').radiocheck();
@@ -52,6 +86,9 @@ function loadPrice() {
       property_size: $('select[name="property_size"]').val(),
       disaster: $( '#disaster' ).slider('value'),
       robbery: $( '#robbery' ).slider('value'),
+      vandalism: $( '#vandalism' ).slider('value'),
+      leakage: $( '#leakage' ).slider('value'),
+      fire: $( '#fire' ).slider('value'),
       security: $('input[name="security"]').is(':checked'),
       reconstruction: $('input[name="reconstruction"]').is(':checked'),
       building_year: $('input[name="building_year"]').is(':checked'),
